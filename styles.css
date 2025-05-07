@@ -35,6 +35,30 @@ body {
     padding: 0 15px;
 }
 
+.image-container {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(45, 62, 80, 0.8);
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.image-overlay h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+}
+
 section {
     padding: 80px 0;
 }
@@ -430,6 +454,13 @@ img {
     padding-bottom: 50px;
 }
 
+.footer-content.simplified {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+
 .footer-logo a {
     color: var(--white);
     font-size: 1.5rem;
@@ -440,6 +471,11 @@ img {
 
 .footer-logo p {
     margin-top: 15px;
+    max-width: 300px;
+}
+
+.footer-contact p {
+    margin-bottom: 8px;
 }
 
 .footer h3 {
@@ -568,6 +604,10 @@ img {
     
     .hero-btns .btn {
         width: 100%;
+    }
+
+    .footer-content.simplified {
+        grid-template-columns: 1fr;
     }
 }
 

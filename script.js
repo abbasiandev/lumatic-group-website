@@ -20,62 +20,38 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Form submission (prevent default)
-document.addEventListener('DOMContentLoaded', function() {
-    const forms = document.querySelectorAll('form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your submission! We will get back to you soon.');
-            form.reset();
-        });
-    });
-});
-
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('.nav-links a, .footer-links a');
+    const getStartedBtn = document.querySelector('.hero-btns .btn-primary');
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (this.getAttribute('href').startsWith('#')) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Close mobile menu if open
-                    document.getElementById('navLinks').classList.remove('active');
-                    
-                    // Scroll to target
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
+    if (getStartedBtn) {
+        getStartedBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Find the contact section
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+                // Scroll to it
+                window.scrollTo({
+                    top: contactSection.offsetTop - 70,
+                    behavior: 'smooth'
+                });
             }
         });
-    });
+    }
 });
 
 // Active link highlight
 window.addEventListener('scroll', function() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links ul li a');
-    
     let currentSection = '';
-    
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        
         if (window.scrollY >= (sectionTop - 100)) {
             currentSection = section.getAttribute('id');
         }
     });
-    
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${currentSection}`) {
