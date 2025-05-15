@@ -75,3 +75,49 @@ function showMenu() {
       }
     });
   });
+
+  const contactForm = document.querySelector('#contact form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = contactForm.querySelector('input[name="name"]').value;
+      const email = contactForm.querySelector('input[name="email"]').value;
+      const subject = contactForm.querySelector('input[name="subject"]').value || 'Contact Form Submission';
+      const message = contactForm.querySelector('textarea[name="message"]').value;
+      
+      let statusContainer = document.querySelector('#formStatus');
+      if (!statusContainer) {
+        statusContainer = document.createElement('div');
+        statusContainer.id = 'formStatus';
+        statusContainer.className = 'mt-3';
+        contactForm.parentNode.insertBefore(statusContainer, contactForm.nextSibling);
+      }
+      
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      
+      const mailtoLink = `mailto:contact@lumatic.is-cool.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+      
+      const tempLink = document.createElement('a');
+      tempLink.href = mailtoLink;
+      
+      setTimeout(() => {
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+        
+        statusContainer.innerHTML = '<div class="alert alert-success">Your email client has been opened. Please send the email to complete your message submission.</div>';
+        contactForm.reset();
+        
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        
+        setTimeout(() => {
+          statusContainer.innerHTML = '';
+        }, 8000);
+      }, 1500);
+    });
+  }
